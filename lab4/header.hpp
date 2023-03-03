@@ -1,9 +1,12 @@
 #pragma once
+
 #include <vector>
 #include <algorithm>
+
 class CVector2D {
 public:
     double x, y;
+
 
 };
 
@@ -54,26 +57,37 @@ public:
 // Размер занимаемой памяти.
     virtual unsigned int size() = 0;
 };
-class IFig: public IGeoFig,public  IPhysObject,public IPrintable,public  IDialogInitiable,public  BaseCObject,public CVector2D{
+
+class IFig
+        : public IGeoFig,
+          public IPhysObject,
+          public IPrintable,
+          public IDialogInitiable,
+          public BaseCObject,
+          public CVector2D {
 
 
 };
-std::vector<IFig*> contain;
+
+std::vector<IFig *> contain;
+
 void printAll() {
     for (int i = 0; i < contain.size(); ++i)
-        contain[i] -> draw();
+        contain[i]->draw();
 }
 
 double sumSquare() {
     double answer = 0;
     for (int i = 0; i < contain.size(); ++i)
-        answer += contain[i] -> square();
+        answer += contain[i]->square();
+    return answer;
 }
 
 double sumPer() {
     double answer = 0;
     for (int i = 0; i < contain.size(); ++i)
-        answer += contain[i] -> perimeter();
+        answer += contain[i]->perimeter();
+    return answer;
 }
 
 CVector2D centerMas() {
@@ -81,19 +95,21 @@ CVector2D centerMas() {
     double denominator = 0;
     double numeratorY = 0;
     for (int i = 0; i < contain.size(); ++i) {
-        numeratorX += contain[i] -> mass() * contain[i] -> position().x;
-        numeratorY += contain[i] -> mass() * contain[i] -> position().y;
-        denominator += contain[i] -> mass();
+        numeratorX += contain[i]->mass() * contain[i]->position().x;
+        numeratorY += contain[i]->mass() * contain[i]->position().y;
+        denominator += contain[i]->mass();
     }
     CVector2D answer;
-    answer.x = numeratorX / denominator;
-    answer.y = numeratorY / denominator;
+     answer.x = numeratorX / denominator;
+     answer.y = numeratorY / denominator;
     return answer;
 }
-unsigned int memorySys(){
+
+unsigned int memorySys() {
     unsigned int answer = 0;
     for (int i = 0; i < contain.size(); ++i)
-        answer += contain[i] -> size();
+        answer += contain[i]->size();
+    return answer;
 }
 
 void sortSys() {

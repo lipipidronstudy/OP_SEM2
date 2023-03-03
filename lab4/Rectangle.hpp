@@ -5,7 +5,6 @@
 #include <algorithm>
 
 using std::cout, std::cin, std::vector;
-class Rectangle;
 
 class Rectangle : public IFig {
 private:

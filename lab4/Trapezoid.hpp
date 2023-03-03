@@ -8,8 +8,6 @@
 
 using std::cout, std::cin, std::vector;
 
-class Trapezoid;
-
 class Trapezoid : public IFig {
 private:
     double height;
