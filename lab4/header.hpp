@@ -1,36 +1,34 @@
 #pragma once
 
-// Интерфейс "Геометрическая фигура".
-class IGeoFig {
-public:
-// Площадь.
-    virtual double square() = 0;
-
-// Периметр.
-    virtual double perimeter() = 0;
-};
-
-// Вектор
 class CVector2D {
 public:
     double x, y;
 
 };
 
+class IGeoFig {
+public:
+
+    virtual double square() = 0;
+
+
+    virtual double perimeter() = 0;
+};
+
 // Интерфейс "Физический объект".
 class IPhysObject {
 public:
 // Масса, кг.
-    virtual double mass() = 0;
+    virtual double mass() const = 0;
 
 // Координаты центра масс, м.
     virtual CVector2D position() = 0;
 
 // Сравнение по массе.
-    virtual bool operator==(const IPhysObject &ob) const = 0;
+    virtual bool operator==(IPhysObject &ob) const = 0;
 
 // Сравнение по массе.
-    virtual bool operator<(const IPhysObject &ob) const = 0;
+    virtual bool operator<(IPhysObject &ob) const = 0;
 };
 
 // Интерфейс "Отображаемый"
@@ -54,21 +52,4 @@ public:
 
 // Размер занимаемой памяти.
     virtual unsigned int size() = 0;
-};
-
-class Rectangle : public IGeoFig, IPhysObject, IPrintable, BaseCObject, IDialogInitiable {
-private:
-    double height;
-    double width;
-public:
-    Rectangle(double height, double width) : height(height), width(width) {}
-
-    double square() override {
-        return height * width;
-    }
-
-    double perimeter() override {
-        return 2 * (height + width);
-    }
-
 };

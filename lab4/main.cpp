@@ -1,10 +1,7 @@
 #include <iostream>
 #include <vector>
-#include "header.hpp"
+#include "Rectangle.hpp"
 int main() {
-    std::vector<BaseCObject> myVector();
-    Rectangle abc(1,1);
-    myVector().push_back(abc);
-    std::cout << "Hello, World!" << std::endl;
+    Rectangle a;
     return 0;
 }
