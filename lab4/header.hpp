@@ -1,5 +1,6 @@
 #pragma once
-
+#include <vector>
+#include <algorithm>
 class CVector2D {
 public:
     double x, y;
@@ -53,3 +54,48 @@ public:
 // Размер занимаемой памяти.
     virtual unsigned int size() = 0;
 };
+class IFig: public IGeoFig,public  IPhysObject,public IPrintable,public  IDialogInitiable,public  BaseCObject,public CVector2D{
+
+
+};
+std::vector<IFig*> contain;
+void printAll() {
+    for (int i = 0; i < contain.size(); ++i)
+        contain[i] -> draw();
+}
+
+double sumSquare() {
+    double answer = 0;
+    for (int i = 0; i < contain.size(); ++i)
+        answer += contain[i] -> square();
+}
+
+double sumPer() {
+    double answer = 0;
+    for (int i = 0; i < contain.size(); ++i)
+        answer += contain[i] -> perimeter();
+}
+
+CVector2D centerMas() {
+    double numeratorX = 0;
+    double denominator = 0;
+    double numeratorY = 0;
+    for (int i = 0; i < contain.size(); ++i) {
+        numeratorX += contain[i] -> mass() * contain[i] -> position().x;
+        numeratorY += contain[i] -> mass() * contain[i] -> position().y;
+        denominator += contain[i] -> mass();
+    }
+    CVector2D answer;
+    answer.x = numeratorX / denominator;
+    answer.y = numeratorY / denominator;
+    return answer;
+}
+unsigned int memorySys(){
+    unsigned int answer = 0;
+    for (int i = 0; i < contain.size(); ++i)
+        answer += contain[i] -> size();
+}
+
+void sortSys() {
+    sort(contain.begin(), contain.end());
+}

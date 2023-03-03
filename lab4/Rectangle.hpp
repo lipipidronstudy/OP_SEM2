@@ -1,29 +1,27 @@
 #pragma once
-
 #include "header.hpp"
 #include <vector>
 #include <iostream>
 #include <algorithm>
 
-using std::cout, std::cin, std::vector, std::pair;
+using std::cout, std::cin, std::vector;
+class Rectangle;
 
-class Rectangle : public IGeoFig, IPhysObject, IPrintable, BaseCObject, IDialogInitiable {
+class Rectangle : public IFig {
 private:
     double height;
     double width;
     double weight;
     CVector2D center;
-    char *name;
-    vector<pair<char *, Rectangle>> contain;
+    const char *name = "Rectangle";
 public:
     Rectangle() = default;
 
     ~Rectangle() = default;
 
-    Rectangle(double height, double width, CVector2D center, char *name) : height(height), width(width),
-                                                                           center(center), name(name) {
-        pair<char *, Rectangle> tmp(name, *this);
-        contain.push_back(tmp);
+    Rectangle(double height, double width, double weight, CVector2D center) : height(height), width(width),weight(weight),
+                                                                           center(center) {
+        contain.push_back(this);
     }
 
     double square() override {
@@ -35,8 +33,10 @@ public:
     }
 
     void draw() override {
+        cout << "Name: " << name << '\n';
         cout << "Height: " << height << '\n';
         cout << "Width: " << width << '\n';
+        cout << "Center x,y: " << center.x << "," << center.y << '\n';
         cout << "Weight: " << weight << '\n';
     }
 
@@ -66,16 +66,15 @@ public:
     }
 
     void initFromDialog() override {
-        cout << "\t Add name: ";
-        cin >> name;
-        cout << "\t Add height: ";
+        cout << " Add height: ";
         cin >> height;
-        cout << "\t Add width: ";
+        cout << "Add width: ";
         cin >> width;
-        cout << "\t Add weight: ";
+        cout << "Add center x and y: ";
+        cin >> center.x >> center.y;
+        cout << "Add weight: ";
         cin >> weight;
-        pair<char *, Rectangle> tmp(name, *this);
-        contain.push_back(tmp);
+        contain.push_back(this);
     };
 
     CVector2D position() override {
@@ -83,28 +82,8 @@ public:
     }
 
 
-    static bool comp(const pair<char *, Rectangle> &a, const pair<char *, Rectangle> &b) {
-        return a.second < b.second;
-    }
 
-    void sortRect() {
-        sort(contain.begin(), contain.end(), comp);
-    }
 
-    void printAll(){
-        for (int i = 0; i < contain.size(); ++i)
-            contain[i].second.draw();
-    }
-    double sumSquare(){
-        double answer = 0;
-        for (int i = 0; i < contain.size(); ++i)
-            answer += contain[i].second.square();
-    }
-    double sumPer(){
-        double answer = 0;
-        for (int i = 0; i < contain.size(); ++i)
-            answer += contain[i].second.perimeter();
-    }
 
 };
 
