@@ -1,10 +1,16 @@
 #include <iostream>
 #include <vector>
+#include "Rectangle.hpp"
+#include "Trapezoid.hpp"
 #include "header.hpp"
+
 int main() {
-    std::vector<BaseCObject> myVector();
-    Rectangle abc(1,1);
-    myVector().push_back(abc);
-    std::cout << "Hello, World!" << std::endl;
+    CVector2D c;
+    c.x = 1;
+    c.y = 3;
+    Rectangle b(1, 2, 6, c);
+    Trapezoid d(1,3,1,3,c);
+    sortSys();
+    printAll();
     return 0;
 }
