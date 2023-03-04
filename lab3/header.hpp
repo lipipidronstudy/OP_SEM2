@@ -6,20 +6,27 @@ class Point {
 public:
     int data;
 
-    Point(int a) : data(a) {}
+    Point(int a) {
+        data = a;
+    }
 
     void operator+=(const Point &a) {
         this->data = this->data + a.data;
     }
+
+    void operator=(const Point &);
 };
 
 class Square {
 public:
-    Square(Point x1, float length) : s_x1(x1), s_length(length) {}
-
-public:
     Point s_x1;
     float s_length;
+
+    Square(Point x1, float length) : s_x1(x1), s_length(length) {
+        s_x1 = x1;
+        s_length = length;
+    }
+
 };
 
 class FIFO {
